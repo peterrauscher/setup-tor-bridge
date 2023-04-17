@@ -28,6 +28,8 @@ jobs:
           sudo systemctl daemon-reload
       - name: Start Tor
         run: sudo systemctl enable --now tor.service
+      - name: Print bridge line for manual connection
+        run: sudo cat /var/lib/tor/pt_state/obfs4_bridgeline.txt
       - name: View logs
         run: sudo journalctl -e -u tor@default
       - name: keepalive
