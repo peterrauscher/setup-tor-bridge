@@ -32,9 +32,9 @@ jobs:
         uses: lhotari/action-upterm@v1
         with:
           limit-access-to-actor: true
-      - name: View logs
-        run: |
-          sudo journalctl -e -u tor@default
-          sudo tail -f /var/log/syslog
-      - name: keepalive
-        run: while true; do echo "keepalive"; sleep 10; done
+      # - name: View logs
+      #   run: |
+      #     sudo journalctl -e -u tor@default
+      #     sudo tail -f /var/log/syslog
+      # - name: keepalive
+      #   run: while true; do echo "keepalive"; sleep 10; done

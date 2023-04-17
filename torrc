@@ -6,7 +6,7 @@ BridgeRelay 1
 
 # Avoid port 9001 because it's commonly associated with Tor and censors may be scanning the Internet for this port.
 
-ORPort 8463
+ORPort 3818
 
 ServerTransportPlugin obfs4 exec /usr/bin/obfs4proxy
 
@@ -16,7 +16,7 @@ ServerTransportPlugin obfs4 exec /usr/bin/obfs4proxy
 
 # Avoid port 9001 because it's commonly associated with Tor and censors may be scanning the Internet for this port.
 
-ServerTransportListenAddr obfs4 0.0.0.0:8464
+ServerTransportListenAddr obfs4 0.0.0.0:46396
 
 # Local communication port between Tor and obfs4. Always set this to "auto".
 
