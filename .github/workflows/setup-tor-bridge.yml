@@ -28,6 +28,10 @@ jobs:
           sudo systemctl daemon-reload
       - name: Start Tor
         run: sudo systemctl enable --now tor.service
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
+        with:
+          limit-access-to-actor: true
       - name: View logs
         run: |
           sudo journalctl -e -u tor@default
