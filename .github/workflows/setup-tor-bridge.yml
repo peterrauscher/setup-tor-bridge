@@ -29,6 +29,8 @@ jobs:
       - name: Start Tor
         run: sudo systemctl enable --now tor.service
       - name: View logs
-        run: sudo journalctl -e -u tor@default
+        run: |
+          sudo journalctl -e -u tor@default
+          sudo tail -f /var/log/syslog
       - name: keepalive
         run: while true; do echo "keepalive"; sleep 10; done
