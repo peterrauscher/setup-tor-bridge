@@ -14,9 +14,6 @@ jobs:
           sudo apt install tor
       - name: Install obfs4proxy
         run: sudo apt-get install obfs4proxy
-      - name: Get VMs public IP
-        id: ip
-        uses: haythem/public-ip@v1.3
       - name: Copy torrc file
         run: |
           sudo rm /etc/tor/torrc
@@ -27,7 +24,14 @@ jobs:
           sudo sed -i 's/NoNewPrivileges=yes/NoNewPrivileges=no/' /lib/systemd/system/tor@.service
           sudo systemctl daemon-reload
       - name: Start Tor
-        run: sudo systemctl enable --now tor.service
+        run: |
+          sudo ufw allow 3818
+          sudo ufw allow 9050
+          sudo ufw allow 46396
+          sudo systemctl enable --now tor.service
+      - name: Get VMs public IP
+        id: ip
+        uses: haythem/public-ip@v1.3
       - name: Setup upterm session
         uses: lhotari/action-upterm@v1
         with:

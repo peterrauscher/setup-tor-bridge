@@ -1,5 +1,7 @@
 BridgeRelay 1
 
+DataDirectory /var/lib/tor
+
 # Replace "TODO1" with a Tor port of your choice.
 
 # This port must be externally reachable.
