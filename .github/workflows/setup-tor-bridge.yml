@@ -1,0 +1,30 @@
+name: Setup a Tor Bridge
+
+on:
+  workflow_dispatch:
+
+jobs:
+  setup-tor-bridge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Tor
+        run: |
+          sudo apt update
+          sudo apt install tor
+      - name: Install obfs4proxy
+        run: |
+          sudo apt-get install obfs4proxy
+      - name: Get VMs public IP
+        id: ip
+        uses: haythem/public-ip@v1.3
+      - name: Copy torrc file
+        run: |
+          sudo rm /etc/tor/torrc
+          sudo cp ./torrc /etc/tor/
+      - name: Print service file details
+        run: |
+          echo "/lib/systemd/system/tor@default.service"
+          cat /lib/systemd/system/tor@default.service
+          echo "/lib/systemd/system/tor@.service"
+          cat /lib/systemd/system/tor@.service
