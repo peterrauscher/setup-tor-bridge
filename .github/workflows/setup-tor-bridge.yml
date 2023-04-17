@@ -13,8 +13,7 @@ jobs:
           sudo apt update
           sudo apt install tor
       - name: Install obfs4proxy
-        run: |
-          sudo apt-get install obfs4proxy
+        run: sudo apt-get install obfs4proxy
       - name: Get VMs public IP
         id: ip
         uses: haythem/public-ip@v1.3
@@ -22,9 +21,14 @@ jobs:
         run: |
           sudo rm /etc/tor/torrc
           sudo cp ./torrc /etc/tor/
-      - name: Print service file details
+      - name: Change service file details
         run: |
-          echo "/lib/systemd/system/tor@default.service"
-          cat /lib/systemd/system/tor@default.service
-          echo "/lib/systemd/system/tor@.service"
-          cat /lib/systemd/system/tor@.service
+          sudo sed -i 's/NoNewPrivileges=yes/NoNewPrivileges=no/' /lib/systemd/system/tor@default.service
+          sudo sed -i 's/NoNewPrivileges=yes/NoNewPrivileges=no/' /lib/systemd/system/tor@.service
+          sudo systemctl daemon-reload
+      - name: Start Tor
+        run: sudo systemctl enable --now tor.service
+      - name: View logs
+        run: sudo journalctl -e -u tor@default
+      - name: keepalive
+        run: while true; do echo "keepalive"; sleep 10; done
